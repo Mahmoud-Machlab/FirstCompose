@@ -38,6 +38,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 
 import com.example.firstcompose.ui.theme.FirstComposeTheme
@@ -78,29 +79,34 @@ val messageList = listOf(
 )
 
 @Composable
-fun MessageCard(msg:Message, modifier: Modifier = Modifier) {
+fun MessageCard(msg:Message, image: AsyncImagePainter, modifier: Modifier = Modifier) {
+
+
+
     Row(
         modifier = Modifier.padding(all =  16.dp),
     ){
-//        Image(
-//            painter = rememberAsyncImagePainter( "https://www.businessinsider.de/wp-content/uploads/2016/03/albert_einstein_head.png"),//painterResource(id = R.drawable.einstein),
-//
-//            contentDescription = "Profilbild von Einstein",
-//            modifier = Modifier
-//                .size(40.dp)
-//                .clip(CircleShape)
-//                .border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
-//
-//        )
-        AsyncImage(
-            model = "https://www.businessinsider.de/wp-content/uploads/2016/03/albert_einstein_head.png",
-            contentDescription = null,
+        Image(
+            painter = image ,//painterResource(id = R.drawable.einstein),
+
+            contentDescription = "Profilbild von Einstein",
             modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape)
                 .border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
 
         )
+
+        // 2. Variante mit coil
+//        AsyncImage(
+//            model = "https://www.businessinsider.de/wp-content/uploads/2016/03/albert_einstein_head.png",
+//            contentDescription = null,
+//            modifier = Modifier
+//                .size(40.dp)
+//                .clip(CircleShape)
+//                .border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
+//
+//        )
 
 
         Spacer(modifier = Modifier.width(8.dp))
@@ -129,9 +135,12 @@ fun MessageCard(msg:Message, modifier: Modifier = Modifier) {
 
 @Composable
 fun Conversation(messages: List<Message>){
+
+    val einstein =rememberAsyncImagePainter( "https://www.businessinsider.de/wp-content/uploads/2016/03/albert_einstein_head.png")
+
     LazyColumn{
         items(messages){message ->
-            MessageCard(msg = message)
+            MessageCard(msg = message,einstein)
         }
     }
 }
