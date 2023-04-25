@@ -1,12 +1,11 @@
 package com.example.firstcompose
 
-import android.content.res.Configuration
 import android.os.Bundle
-import android.view.textclassifier.ConversationAction
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -38,7 +37,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
+
 import com.example.firstcompose.ui.theme.FirstComposeTheme
+
 
 
 class MainActivity : ComponentActivity() {
@@ -79,16 +82,27 @@ fun MessageCard(msg:Message, modifier: Modifier = Modifier) {
     Row(
         modifier = Modifier.padding(all =  16.dp),
     ){
-        Image(
-            painter = painterResource(id = R.drawable.einstein),
-
-            contentDescription = "Profilbild von Einstein",
+//        Image(
+//            painter = rememberAsyncImagePainter( "https://www.businessinsider.de/wp-content/uploads/2016/03/albert_einstein_head.png"),//painterResource(id = R.drawable.einstein),
+//
+//            contentDescription = "Profilbild von Einstein",
+//            modifier = Modifier
+//                .size(40.dp)
+//                .clip(CircleShape)
+//                .border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
+//
+//        )
+        AsyncImage(
+            model = "https://www.businessinsider.de/wp-content/uploads/2016/03/albert_einstein_head.png",
+            contentDescription = null,
             modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape)
                 .border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
 
         )
+
+
         Spacer(modifier = Modifier.width(8.dp))
 
         var isExpandet by remember { mutableStateOf(false) }
